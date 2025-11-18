@@ -1,32 +1,44 @@
 #include <stdio.h>
 
-int main(){
-    //entrada de dados
-    int i,j,n;
-    printf("Insira o tamanho do vetor: ");
+int main() {
+
+    int i, j, n;
+
+    // Ask the user for the size of the array
+    printf("Enter the size of the array: ");
     scanf("%d", &n);
-    int v[n];
-    for(i=0;i<n;i++){
-        printf("Insira o elemento [%d] do vetor: ", i);
+
+    int v[n]; // Declare the array with n elements
+
+    // Read all elements from the user
+    for(i = 0; i < n; i++){
+        printf("Enter element [%d] of the array: ", i);
         scanf("%d", &v[i]);
     }
 
-    for(i=0;i<n-1;i++){ //em i = n-2 o vetor termina de estar ordenado
-        int menor = v[i]; //menor elemento é o v[i] atual(começa na v[0])
-        int pos = i; //pos guarda o indice em i(posição no vetor) onde o menor valor foi encontrado
-        for(j = i+1; j<n;j++){ //precisa comparar elementos apenas depois de i, ja que v[i] armazena o menor valor por enquanto
-            if(v[j] < menor){ //o elemento em j=(i+1) é menor que o menor atual(v[i])?
-                menor = v[j]; //se sim, menor é o menor encontrado na posição j
-                pos = j; //indice do menor valor se torna j atual
+    // Selection Sort algorithm
+    // Outer loop: selects the current position to fill with the smallest remaining value
+    for(i = 0; i < n - 1; i++){
+        int smallest = v[i]; // Assume the current element is the smallest
+        int pos = i;         // Store its index
+        // Inner loop: search for a smaller element in the rest of the array
+        for(j = i + 1; j < n; j++){
+            // If a smaller value is found, update 'smallest' and 'pos'
+            if(v[j] < smallest){
+                smallest = v[j];
+                pos = j;
             }
         }
-        int temp = v[i];//variavel temporaria para guardar o valor inicial de v[i]
-        v[i] = v[pos];//menor elemento é colocado na posicao i, sobescrevendo o que havia anteriormente
-        v[pos] = temp;//antigo valor de v[i](armazenado em temp) vai para a posição onde estava o menor
+        // Swap the current element with the actual smallest found
+        int temp = v[i];
+        v[i] = v[pos];
+        v[pos] = temp;
     }
-    //saida de dados
-    printf("Vetor ordenado: ");
-    for(i=0;i<n;i++){
+    // Print the sorted array
+    printf("Sorted array: ");
+    for(i = 0; i < n; i++){
         printf("%d ", v[i]);
     }
+
+    return 0;
 }
